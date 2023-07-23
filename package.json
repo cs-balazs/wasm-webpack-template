@@ -1,0 +1,35 @@
+{
+  "name": "wasm-webpack-template",
+  "version": "1.0.0",
+  "description": "Starting point for developing wasm applications in rust, with type-safety provided by tsify",
+  "main": "public/index.js",
+  "scripts": {
+    "clean:wasm": "rm -rf ./wasm",
+    "clean:public": "rm -rf ./public",
+    "clean": "npm run clean:wasm; npm run clean:public",
+    "build:wasm": "cargo build --release --target wasm32-unknown-unknown",
+    "build:wasm-bindgen": "wasm-bindgen --out-dir ./wasm --target web --out-name index ./target/wasm32-unknown-unknown/release/index.wasm",
+    "build:ts": "webpack",
+    "build": "npm run clean; npm run build:wasm; npm run build:wasm-bindgen; npm run build:ts",
+    "test:rust": "cargo test",
+    "test:ts": "vitest run",
+    "test": "npm run test:rust; npm run test:ts",
+    "start": "webpack serve"
+  },
+  "keywords": [
+    "wasm"
+  ],
+  "author": "baloo",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/register": "^0.1.10",
+    "@types/webpack-watch-files-plugin": "^1.1.0",
+    "html-webpack-plugin": "^5.5.3",
+    "swc-loader": "^0.2.3",
+    "vitest": "^0.33.0",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-watch-files-plugin": "^1.2.1"
+  }
+}
